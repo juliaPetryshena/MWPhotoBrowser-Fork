@@ -121,6 +121,7 @@
 - (void)savePhoto;
 - (void)copyPhoto;
 - (void)emailPhoto;
+- (void)deletePhoto;
 
 @end
 
@@ -1003,11 +1004,11 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
             // Sheet
             if ([MFMailComposeViewController canSendMail]) {
                 self.actionsSheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self
-                                                        cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil
+                                                        cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:@"Delete"
                                                         otherButtonTitles:NSLocalizedString(@"Save", nil), NSLocalizedString(@"Copy", nil), NSLocalizedString(@"Email", nil), nil] autorelease];
             } else {
                 self.actionsSheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self
-                                                        cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil
+                                                        cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:@"Delete"
                                                         otherButtonTitles:NSLocalizedString(@"Save", nil), NSLocalizedString(@"Copy", nil), nil] autorelease];
             }
             _actionsSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
@@ -1034,6 +1035,8 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
                 [self copyPhoto]; return;	
             } else if (buttonIndex == actionSheet.firstOtherButtonIndex + 2) {
                 [self emailPhoto]; return;
+            } else if (buttonIndex == actionSheet.destructiveButtonIndex) {
+                [self deletePhoto];return;
             }
         }
     }
@@ -1140,6 +1143,11 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
         [emailer release];
         [self hideProgressHUD:NO];
     }
+}
+
+- (void) deletePhoto {
+    [self doneButtonPressed:self];
+    [_delegate destructiveButtonActionSheet:_currentPageIndex];
 }
 
 #pragma mark Mail Compose Delegate
