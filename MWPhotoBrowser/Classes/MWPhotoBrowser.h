@@ -34,7 +34,7 @@
 
 // Properties
 @property (nonatomic) BOOL displayActionButton;
-
+@property (nonatomic) float slideshowInterval;
 // Init
 - (id)initWithPhotos:(NSArray *)photosArray  __attribute__((deprecated)); // Depreciated
 - (id)initWithDelegate:(id <MWPhotoBrowserDelegate>)delegate;

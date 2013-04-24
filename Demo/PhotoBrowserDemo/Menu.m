@@ -138,7 +138,7 @@
         
         [nc release];
     }
-  //  [browser startSlideShow];
+    [browser startSlideShow];
     // Release
 	[browser release];
 	[photos release];

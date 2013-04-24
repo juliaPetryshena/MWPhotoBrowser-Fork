@@ -153,6 +153,7 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
         // Defaults
         self.wantsFullScreenLayout = YES;
         self.hidesBottomBarWhenPushed = YES;
+        self.slideshowInterval = 3;
         _photoCount = NSNotFound;
 		_currentPageIndex = 0;
 		_performingLayout = NO; // Reset on view did appear
@@ -520,11 +521,6 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
 	_rotating = NO;
-    if(_isInAnimatingProcess){
-        [self jumpToPageAtIndex:_nextPage];
-    } else {
-        [self jumpToPageAtIndex:_currentPageIndex];
-    }
 }
 
 #pragma mark - Data
@@ -903,13 +899,11 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
 
 - (void)startSlideShowPressed
 {
-    
     [self startSlideShow];
 }
 
 - (void)stopSlideShowPressed
 {
-
     [self stopSlideShow];
 }
 
@@ -1188,7 +1182,7 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
     [arrayOfItems removeObjectAtIndex:2];
     [arrayOfItems insertObject:_stopButton atIndex:2];
     _toolbar.items = arrayOfItems;
-    self.slideShowTimer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(goNext) userInfo:nil repeats:YES];
+    self.slideShowTimer = [NSTimer scheduledTimerWithTimeInterval:self.slideshowInterval target:self selector:@selector(goNext) userInfo:nil repeats:YES];
     [self setControlsHidden:YES animated:NO permanent:YES];
 }
 
@@ -1238,8 +1232,9 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
     double delayInSeconds2 = 0.5;
     dispatch_time_t popTime2 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds2 * NSEC_PER_SEC));
     dispatch_after(popTime2, dispatch_get_main_queue(), ^(void){
-         //_isInAnimatingProcess = NO;
-        [self jumpToPageAtIndex:index];
+        [UIView animateWithDuration:0.3 animations:^{
+            [self jumpToPageAtIndex:_nextPage];
+        }];
     });
 
 	// Update timer to give more time
