@@ -37,12 +37,15 @@
 	// Paging
 	NSMutableSet *_visiblePages, *_recycledPages;
 	NSUInteger _currentPageIndex;
+    NSInteger _nextPage;
+    BOOL _isInAnimatingProcess;
 	NSUInteger _pageIndexBeforeRotation;
 	
 	// Navigation & controls
 	UIToolbar *_toolbar;
 	NSTimer *_controlVisibilityTimer;
 	UIBarButtonItem *_previousButton, *_nextButton, *_actionButton;
+    UIBarButtonItem *_startButton, *_stopButton;
     UIActionSheet *_actionsSheet;
     MBProgressHUD *_progressHUD;
     
@@ -69,6 +72,7 @@
 @property (nonatomic, retain) UIImage *navigationBarBackgroundImageDefault, *navigationBarBackgroundImageLandscapePhone;
 @property (nonatomic, retain) UIActionSheet *actionsSheet;
 @property (nonatomic, retain) MBProgressHUD *progressHUD;
+@property (nonatomic,strong) NSTimer* slideShowTimer;
 
 // Private Methods
 
@@ -248,10 +252,11 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
     }
     _toolbar.barStyle = UIBarStyleBlackTranslucent;
     _toolbar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+
+    _startButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(startSlideShowPressed)];
     
-    // Toolbar Items
-    _previousButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"MWPhotoBrowser.bundle/images/UIBarButtonItemArrowLeft.png"] style:UIBarButtonItemStylePlain target:self action:@selector(gotoPreviousPage)];
-    _nextButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"MWPhotoBrowser.bundle/images/UIBarButtonItemArrowRight.png"] style:UIBarButtonItemStylePlain target:self action:@selector(gotoNextPage)];
+    _stopButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPause target:self action:@selector(stopSlideShowPressed)];    
+    
     _actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actionButtonPressed:)];
     
     // Update
@@ -286,9 +291,7 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
     NSMutableArray *items = [[NSMutableArray alloc] init];
     if (_displayActionButton) [items addObject:fixedLeftSpace];
     [items addObject:flexSpace];
-    if (numberOfPhotos > 1) [items addObject:_previousButton];
-    [items addObject:flexSpace];
-    if (numberOfPhotos > 1) [items addObject:_nextButton];
+    if (numberOfPhotos > 1) [items addObject:_startButton];
     [items addObject:flexSpace];
     if (_displayActionButton) [items addObject:_actionButton];
     [_toolbar setItems:items];
@@ -510,7 +513,6 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
     
 	// Layout manually (iOS < 5)
     if (SYSTEM_VERSION_LESS_THAN(@"5")) [self viewWillLayoutSubviews];
-	
 	// Delay control holding
 	[self hideControlsAfterDelay];
 	
@@ -518,6 +520,11 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
 	_rotating = NO;
+    if(_isInAnimatingProcess){
+        [self jumpToPageAtIndex:_nextPage];
+    } else {
+        [self jumpToPageAtIndex:_currentPageIndex];
+    }
 }
 
 #pragma mark - Data
@@ -887,7 +894,24 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
 }
 
 - (void)gotoPreviousPage { [self jumpToPageAtIndex:_currentPageIndex-1]; }
-- (void)gotoNextPage { [self jumpToPageAtIndex:_currentPageIndex+1]; }
+- (void)gotoNextPage
+{
+    
+    [self jumpToPageAtIndex:_currentPageIndex+1];
+
+}
+
+- (void)startSlideShowPressed
+{
+    
+    [self startSlideShow];
+}
+
+- (void)stopSlideShowPressed
+{
+
+    [self stopSlideShow];
+}
 
 #pragma mark - Control Hiding / Showing
 
@@ -1155,5 +1179,73 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
     }
 	[self dismissModalViewControllerAnimated:YES];
 }
+
+#pragma mark Slideshow
+
+- (void)startSlideShow
+{
+    NSMutableArray* arrayOfItems = [_toolbar.items mutableCopy];
+    [arrayOfItems removeObjectAtIndex:2];
+    [arrayOfItems insertObject:_stopButton atIndex:2];
+    _toolbar.items = arrayOfItems;
+    self.slideShowTimer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(goNext) userInfo:nil repeats:YES];
+    [self setControlsHidden:YES animated:NO permanent:YES];
+}
+
+- (void)stopSlideShow
+{
+    NSMutableArray* arrayOfItems = [_toolbar.items mutableCopy];
+    [arrayOfItems removeObjectAtIndex:2];
+    [arrayOfItems insertObject:_startButton atIndex:2];
+    _toolbar.items = arrayOfItems;
+    [self.slideShowTimer invalidate];
+}
+
+- (void)goNext
+{
+
+    [self gotoNextPageAnimated];
+}
+
+- (void)gotoNextPageAnimated
+{
+    
+    [self jumpToPageAnimatedAtIndex:_currentPageIndex+1];
+    
+}
+
+- (void)jumpToPageAnimatedAtIndex:(NSUInteger)index {
+
+	if (index < [self numberOfPhotos]) {
+        _nextPage = index;
+    } else {
+        _nextPage = 0;
+        [self stopSlideShowPressed];
+        [self setControlsHidden:NO animated:NO permanent:YES];
+    }
+        CGRect pageFrame = [self frameForPageAtIndex:_nextPage];
+    
+        [_pagingScrollView setContentOffset:CGPointMake(pageFrame.origin.x - PADDING, 0) animated:YES];
+        _isInAnimatingProcess = YES;
+    
+        double delayInSeconds = 0.3;
+    
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self updateNavigation];
+        });
+		
+    double delayInSeconds2 = 0.5;
+    dispatch_time_t popTime2 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds2 * NSEC_PER_SEC));
+    dispatch_after(popTime2, dispatch_get_main_queue(), ^(void){
+         //_isInAnimatingProcess = NO;
+        [self jumpToPageAtIndex:index];
+    });
+
+	// Update timer to give more time
+	[self hideControlsAfterDelay];
+	
+}
+
 
 @end
