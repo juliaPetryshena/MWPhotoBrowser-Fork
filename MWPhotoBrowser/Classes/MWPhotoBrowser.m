@@ -131,7 +131,7 @@
 
 // Handle depreciations and supress hide warnings
 @interface UIApplication (DepreciationWarningSuppresion)
-- (void)setStatusBarHidden:(BOOL)hidden animated:(BOOL)animated;
+//- (void)setStatusBarHidden:(BOOL)hidden animated:(BOOL)animated;
 @end
 
 // MWPhotoBrowser
@@ -929,7 +929,8 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
         if ([UIApplication instancesRespondToSelector:@selector(setStatusBarHidden:withAnimation:)]) {
             [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:animated?UIStatusBarAnimationFade:UIStatusBarAnimationNone];
         } else {
-            [[UIApplication sharedApplication] setStatusBarHidden:hidden animated:animated];
+            //[[UIApplication sharedApplication] setStatusBarHidden:hidden animated:animated];
+            [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationFade];
         }
         
         // Get status bar height if visible
