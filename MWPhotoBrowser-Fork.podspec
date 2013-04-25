@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.homepage = 'https://github.com/mwaterfall/MWPhotoBrowser'
   s.author   = { 'Michael Waterfall' => 'mw@d3i.com' }
 
-  s.source   = { :git => 'https://github.com/korzun1993/MWPhotoBrowser-Fork.git', :commit => '292d8c713d8d195df17d7aff0ed661bbd7bb497c' }
+  s.source   = { :git => 'git@github.com:korzun1993/MWPhotoBrowser-Fork.git', :commit => 'd51c261ddf2f714188f411cd6873102d3c171db6' }
 
   s.description  = 'MWPhotoBrowser is an implementation of a photo browser similar to the native Photos app in iOS.'\
                    'It can display one or more images by providing either UIImage objects, file paths to images on the device, '\
