@@ -292,7 +292,7 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
     NSMutableArray *items = [[NSMutableArray alloc] init];
     if (_displayActionButton) [items addObject:fixedLeftSpace];
     [items addObject:flexSpace];
-    if (numberOfPhotos > 1) [items addObject:_startButton];
+    if (_photoCount > 1) [items addObject:_startButton];
     [items addObject:flexSpace];
     if (_displayActionButton) [items addObject:_actionButton];
     [_toolbar setItems:items];
@@ -1178,21 +1178,25 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
 
 - (void)startSlideShow
 {
-    NSMutableArray* arrayOfItems = [_toolbar.items mutableCopy];
-    [arrayOfItems removeObjectAtIndex:2];
-    [arrayOfItems insertObject:_stopButton atIndex:2];
-    _toolbar.items = arrayOfItems;
-    self.slideShowTimer = [NSTimer scheduledTimerWithTimeInterval:self.slideshowInterval target:self selector:@selector(goNext) userInfo:nil repeats:YES];
-    [self setControlsHidden:YES animated:NO permanent:YES];
+    if(_photoCount > 1){
+        NSMutableArray* arrayOfItems = [_toolbar.items mutableCopy];
+        [arrayOfItems removeObjectAtIndex:2];
+        [arrayOfItems insertObject:_stopButton atIndex:2];
+        _toolbar.items = arrayOfItems;
+        self.slideShowTimer = [NSTimer scheduledTimerWithTimeInterval:self.slideshowInterval target:self selector:@selector(goNext) userInfo:nil repeats:YES];
+        [self setControlsHidden:YES animated:NO permanent:YES];
+    }
 }
 
 - (void)stopSlideShow
 {
-    NSMutableArray* arrayOfItems = [_toolbar.items mutableCopy];
-    [arrayOfItems removeObjectAtIndex:2];
-    [arrayOfItems insertObject:_startButton atIndex:2];
-    _toolbar.items = arrayOfItems;
-    [self.slideShowTimer invalidate];
+    if(_photoCount > 1){
+        NSMutableArray* arrayOfItems = [_toolbar.items mutableCopy];
+        [arrayOfItems removeObjectAtIndex:2];
+        [arrayOfItems insertObject:_startButton atIndex:2];
+        _toolbar.items = arrayOfItems;
+        [self.slideShowTimer invalidate];
+    }
 }
 
 - (void)goNext
