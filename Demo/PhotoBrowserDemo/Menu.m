@@ -143,7 +143,7 @@
         [nc release];
     }
 //    [browser.actionButton setBackgroundImage:[UIImage imageNamed:@"Checkmaark" ] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-   
+    
     [browser startSlideShow];
     // Release
 	[browser release];
