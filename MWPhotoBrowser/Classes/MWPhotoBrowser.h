@@ -12,6 +12,8 @@
 #import "MWPhotoProtocol.h"
 #import "MWCaptionView.h"
 
+typedef void (^FacebookShareBlock)(UIImage*image);
+
 // Debug Logging
 #if 0 // Set to 1 to enable debug logging
 #define MWLog(x, ...) NSLog(x, ## __VA_ARGS__);
@@ -34,7 +36,18 @@
 
 // Properties
 @property (nonatomic) BOOL displayActionButton;
+@property (nonatomic) BOOL isNeedToResetNavbarAppearance;
 @property (nonatomic) float slideshowInterval;
+@property (nonatomic) BOOL isPosibleToRemovePhotos;
+@property (nonatomic, copy) FacebookShareBlock facebookShareBlock;
+
+@property (nonatomic, strong) UIBarButtonItem *actionButton;
+@property (nonatomic, strong) UIBarButtonItem *startButton;
+@property (nonatomic, strong) UIBarButtonItem *stopButton;
+@property (nonatomic, strong) UIBarButtonItem *previousViewControllerBackButton;
+@property (nonatomic, strong) UIView *viewForNavigationBar;
+@property (nonatomic, strong) UIToolbar *toolbar;
+
 // Init
 - (id)initWithPhotos:(NSArray *)photosArray  __attribute__((deprecated)); // Depreciated
 - (id)initWithDelegate:(id <MWPhotoBrowserDelegate>)delegate;

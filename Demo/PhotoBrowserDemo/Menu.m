@@ -125,8 +125,12 @@
     browser.displayActionButton = YES;
     //browser.wantsFullScreenLayout = NO;
     //[browser setInitialPageIndex:2];
+    browser.facebookShareBlock = ^(UIImage* image){
+        
+    };
     
-    // Show
+    
+       // Show
     if (_segmentedControl.selectedSegmentIndex == 0) {
         // Push
         [self.navigationController pushViewController:browser animated:YES];
@@ -138,6 +142,8 @@
         
         [nc release];
     }
+//    [browser.actionButton setBackgroundImage:[UIImage imageNamed:@"Checkmaark" ] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+   
     [browser startSlideShow];
     // Release
 	[browser release];
