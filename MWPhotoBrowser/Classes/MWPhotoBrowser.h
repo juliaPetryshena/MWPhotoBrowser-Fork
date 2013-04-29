@@ -47,7 +47,8 @@ typedef void (^FacebookShareBlock)(UIImage*image);
 @property (nonatomic, strong) UIBarButtonItem *previousViewControllerBackButton;
 @property (nonatomic, strong) UIView *viewForNavigationBar;
 @property (nonatomic, strong) UIToolbar *toolbar;
-
+@property (nonatomic) BOOL isNeedToSetStandartBackButton;
+@property (nonatomic, strong) UIBarButtonItem *backButton;
 // Init
 - (id)initWithPhotos:(NSArray *)photosArray  __attribute__((deprecated)); // Depreciated
 - (id)initWithDelegate:(id <MWPhotoBrowserDelegate>)delegate;
