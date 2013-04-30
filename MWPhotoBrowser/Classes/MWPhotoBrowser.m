@@ -961,14 +961,15 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
     if (animated) {
         //[UIView beginAnimations:nil context:nil];
         //[UIView setAnimationDuration:0.35];
-        animationDuration = 0.35;
+        animationDuration = 0.5;
     }
     CGFloat alpha = hidden ? 0 : 1;
     [UIView animateWithDuration:animationDuration animations:^{
         
         [self.navigationController.navigationBar setAlpha:alpha];
         [_toolbar setAlpha:alpha];
-        for (UIView *v in captionViews) v.alpha = alpha;
+        
+        for (UIView *v in captionViews) v.alpha = alpha * 2;
     
     }];
 	// Control hiding timer
@@ -1208,7 +1209,7 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
         _toolbar.items = arrayOfItems;
         [self.slideShowTimer invalidate];
         self.slideShowTimer = [NSTimer scheduledTimerWithTimeInterval:self.slideshowInterval target:self selector:@selector(goNext) userInfo:nil repeats:YES];
-        [self setControlsHidden:YES animated:NO permanent:YES];
+        [self setControlsHidden:YES animated:YES permanent:YES];
     }
 }
 
