@@ -961,7 +961,7 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
     if (animated) {
         //[UIView beginAnimations:nil context:nil];
         //[UIView setAnimationDuration:0.35];
-        animationDuration = 0.5;
+        animationDuration = 0.2;
     }
     CGFloat alpha = hidden ? 0 : 1;
     [UIView animateWithDuration:animationDuration animations:^{
@@ -1210,6 +1210,7 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
         [self.slideShowTimer invalidate];
         self.slideShowTimer = [NSTimer scheduledTimerWithTimeInterval:self.slideshowInterval target:self selector:@selector(goNext) userInfo:nil repeats:YES];
         [self setControlsHidden:YES animated:YES permanent:YES];
+        
     }
 }
 
@@ -1221,6 +1222,7 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
         [arrayOfItems insertObject:_startButton atIndex:2];
         _toolbar.items = arrayOfItems;
         [self.slideShowTimer invalidate];
+        
     }
 }
 
