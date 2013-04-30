@@ -13,6 +13,7 @@
 #import "MWCaptionView.h"
 
 typedef void (^FacebookShareBlock)(UIImage*image);
+typedef void (^MailShareBlock)(UIImage*image);
 
 // Debug Logging
 #if 0 // Set to 1 to enable debug logging
@@ -40,6 +41,7 @@ typedef void (^FacebookShareBlock)(UIImage*image);
 @property (nonatomic) float slideshowInterval;
 @property (nonatomic) BOOL isPosibleToRemovePhotos;
 @property (nonatomic, copy) FacebookShareBlock facebookShareBlock;
+@property (nonatomic, copy) MailShareBlock mailShareBlock;
 
 @property (nonatomic, strong) UIBarButtonItem *actionButton;
 @property (nonatomic, strong) UIBarButtonItem *startButton;

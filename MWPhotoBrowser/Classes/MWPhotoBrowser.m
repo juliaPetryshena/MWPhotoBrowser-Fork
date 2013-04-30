@@ -956,16 +956,21 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
     }
 	
 	// Animate
+    float animationDuration = 0;
+    
     if (animated) {
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDuration:0.35];
+        //[UIView beginAnimations:nil context:nil];
+        //[UIView setAnimationDuration:0.35];
+        animationDuration = 0.35;
     }
     CGFloat alpha = hidden ? 0 : 1;
-	[self.navigationController.navigationBar setAlpha:alpha];
-	[_toolbar setAlpha:alpha];
-    for (UIView *v in captionViews) v.alpha = alpha;
-	if (animated) [UIView commitAnimations];
-	
+    [UIView animateWithDuration:animationDuration animations:^{
+        
+        [self.navigationController.navigationBar setAlpha:alpha];
+        [_toolbar setAlpha:alpha];
+        for (UIView *v in captionViews) v.alpha = alpha;
+    
+    }];
 	// Control hiding timer
 	// Will cancel existing timer but only begin hiding if
 	// they are visible
@@ -1066,7 +1071,10 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
                 }
             }
             if (buttonIndex == 1){
-                [self emailPhoto];
+                if(self.mailShareBlock && [[self photoAtIndex:_currentPageIndex] underlyingImage]){
+                    self.mailShareBlock([[self photoAtIndex:_currentPageIndex] underlyingImage]);
+                }
+                //[self emailPhoto];
             }
         }
     }
