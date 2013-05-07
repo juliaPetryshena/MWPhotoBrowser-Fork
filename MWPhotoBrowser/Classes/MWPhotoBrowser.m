@@ -864,8 +864,15 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
 - (void)updateNavigation {
     
 	// Title
-	if ([self numberOfPhotos] > 1 && !self.viewForNavigationBar) {
-		self.title = [NSString stringWithFormat:@"%i %@ %i", _currentPageIndex+1, NSLocalizedString(@"of", @"Used in the context: 'Showing 1 of 3 items'"), [self numberOfPhotos]];		
+    NSInteger totalNumberOfPhotos = 0;
+    if (self.totalNumberOfPhotos){
+        totalNumberOfPhotos = self.totalNumberOfPhotos;
+    } else {
+        totalNumberOfPhotos = [self numberOfPhotos];
+    }
+    
+	if (totalNumberOfPhotos > 1 && !self.viewForNavigationBar) {
+		self.title = [NSString stringWithFormat:@"%i %@ %i", _currentPageIndex+1, NSLocalizedString(@"of", @"Used in the context: 'Showing 1 of 3 items'"), totalNumberOfPhotos];
 	} else {
         if(self.viewForNavigationBar){
             [self.navigationItem setTitleView:self.viewForNavigationBar];
@@ -873,8 +880,8 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
 	}
 	
 	// Buttons
-
-
+    
+    
 	
 }
 

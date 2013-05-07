@@ -51,6 +51,7 @@ typedef void (^MailShareBlock)(UIImage*image);
 @property (nonatomic, strong) UIToolbar *toolbar;
 @property (nonatomic) BOOL isNeedToSetStandartBackButton;
 @property (nonatomic, strong) UIBarButtonItem *backButton;
+@property (nonatomic) NSInteger totalNumberOfPhotos;
 // Init
 - (id)initWithPhotos:(NSArray *)photosArray  __attribute__((deprecated)); // Depreciated
 - (id)initWithDelegate:(id <MWPhotoBrowserDelegate>)delegate;

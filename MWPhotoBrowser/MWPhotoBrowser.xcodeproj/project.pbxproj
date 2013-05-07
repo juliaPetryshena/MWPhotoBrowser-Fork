@@ -43,6 +43,7 @@
 		4C6F971B14AF711300F8389A /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F970914AF711300F8389A /* UIImageView+WebCache.m */; };
 		4C6F97C714AF74E200F8389A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C6F97C614AF74E200F8389A /* MessageUI.framework */; };
 		4CB08BA314B1F38700730E9F /* MWPhotoProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CB08BA214B1F38700730E9F /* MWPhotoProtocol.h */; };
+		D3B0D1261730229B009A6F31 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3B0D1251730229B009A6F31 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +86,7 @@
 		4C6F970914AF711300F8389A /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+WebCache.m"; path = "Libraries/SDWebImage/UIImageView+WebCache.m"; sourceTree = SOURCE_ROOT; };
 		4C6F97C614AF74E200F8389A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		4CB08BA214B1F38700730E9F /* MWPhotoProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWPhotoProtocol.h; path = Classes/MWPhotoProtocol.h; sourceTree = SOURCE_ROOT; };
+		D3B0D1251730229B009A6F31 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 				0EA380331573EA4B003F4582 /* ImageIO.framework in Frameworks */,
 				4C6F97C714AF74E200F8389A /* MessageUI.framework in Frameworks */,
 				4C6F96C814AF704100F8389A /* Foundation.framework in Frameworks */,
+				D3B0D1261730229B009A6F31 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,6 +125,7 @@
 		4C6F96C614AF704100F8389A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D3B0D1251730229B009A6F31 /* SystemConfiguration.framework */,
 				0EA380321573EA4B003F4582 /* ImageIO.framework */,
 				4C6F97C614AF74E200F8389A /* MessageUI.framework */,
 				4C6F96C714AF704100F8389A /* Foundation.framework */,

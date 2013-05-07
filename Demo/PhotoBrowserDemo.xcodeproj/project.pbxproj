@@ -26,6 +26,7 @@
 		4C6F97D814AF760500F8389A /* photo3m.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4C6F97D014AF760500F8389A /* photo3m.jpg */; };
 		4C6F97D914AF760500F8389A /* photo4l.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4C6F97D114AF760500F8389A /* photo4l.jpg */; };
 		4C6F97DA14AF760500F8389A /* photo4m.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4C6F97D214AF760500F8389A /* photo4m.jpg */; };
+		D3B0D12417302289009A6F31 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3B0D12317302289009A6F31 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		4C6F97D014AF760500F8389A /* photo3m.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = photo3m.jpg; path = Photos/photo3m.jpg; sourceTree = "<group>"; };
 		4C6F97D114AF760500F8389A /* photo4l.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = photo4l.jpg; path = Photos/photo4l.jpg; sourceTree = "<group>"; };
 		4C6F97D214AF760500F8389A /* photo4m.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = photo4m.jpg; path = Photos/photo4m.jpg; sourceTree = "<group>"; };
+		D3B0D12317302289009A6F31 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3B0D12417302289009A6F31 /* SystemConfiguration.framework in Frameworks */,
 				0E76FFF21573FE25000EE5CA /* libMWPhotoBrowser.a in Frameworks */,
 				0EA380351573EA53003F4582 /* ImageIO.framework in Frameworks */,
 				4C6F97C914AF750400F8389A /* MessageUI.framework in Frameworks */,
@@ -100,6 +103,7 @@
 		4C6F978214AF734800F8389A = {
 			isa = PBXGroup;
 			children = (
+				D3B0D12317302289009A6F31 /* SystemConfiguration.framework */,
 				4C6F979714AF734900F8389A /* PhotoBrowserDemo */,
 				4C6F979014AF734900F8389A /* Frameworks */,
 				4C6F978E14AF734900F8389A /* Products */,
