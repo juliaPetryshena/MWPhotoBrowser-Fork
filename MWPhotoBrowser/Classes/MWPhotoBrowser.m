@@ -871,20 +871,9 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
         totalNumberOfPhotos = [self numberOfPhotos];
     }
     
-	if (totalNumberOfPhotos > 1 && !self.viewForNavigationBar) {
-		self.title = [NSString stringWithFormat:@"%i %@ %i", _currentPageIndex+1, NSLocalizedString(@"of", @"Used in the context: 'Showing 1 of 3 items'"), totalNumberOfPhotos];
-	} else {
-        if(self.viewForNavigationBar){
-            [self.navigationItem setTitleView:self.viewForNavigationBar];
-        }
-	}
-	
-	// Buttons
+    self.title = [NSString stringWithFormat:@"%i %@ %i", _currentPageIndex+1, NSLocalizedString(@"of", @"Used in the context: 'Showing 1 of 3 items'"), totalNumberOfPhotos];
     
-    
-	
 }
-
 - (void)jumpToPageAtIndex:(NSUInteger)index {
 	
 	// Change page
