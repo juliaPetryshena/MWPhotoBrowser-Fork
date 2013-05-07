@@ -1015,6 +1015,7 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
 }
 
 - (void)actionButtonPressed:(id)sender {
+    [self stopSlideShow];
     if (_actionsSheet) {
         // Dismiss
         [_actionsSheet dismissWithClickedButtonIndex:_actionsSheet.cancelButtonIndex animated:YES];
