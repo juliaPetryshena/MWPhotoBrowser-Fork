@@ -23,7 +23,7 @@
 + (id)newWithPhoto:(id<MWPhoto>)photo {
     
     NSString *bundlePath = [[NSBundle mainBundle]pathForResource:@"MWPhotoBrowser" ofType:@"bundle"];
-
+    
     NSArray *arr = [[NSBundle bundleWithPath:bundlePath] loadNibNamed:@"MWUserHeaderView"
                                                                 owner:nil
                                                               options:nil];
@@ -56,17 +56,17 @@
                          placeholderImage:[UIImage imageNamed:@"fb_blank_profile_square"]
                                   options:nil
                                   success:^(UIImage *image, BOOL cached) {
-            if (image) {
-                [_userAvatarImage setImage:image];
-            }
-        
-    } failure:^(NSError *error) {
-        NSLog(@"error description %@", [error description]);
-    }];
+                                      if (image) {
+                                          [_userAvatarImage setImage:image];
+                                      }
+                                      
+                                  } failure:^(NSError *error) {
+                                      NSLog(@"error description %@", [error description]);
+                                  }];
 }
 
 - (void)dealloc {
-
+    
     [super dealloc];
 }
 

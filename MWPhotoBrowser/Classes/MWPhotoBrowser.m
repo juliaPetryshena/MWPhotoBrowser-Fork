@@ -10,7 +10,8 @@
 #import "MWPhotoBrowser.h"
 #import "MWZoomingScrollView.h"
 #import "MBProgressHUD.h"
-#import "SDImageCache.h"
+#import <SDWebImage/SDImageCache.h>
+#import "MWUserHeaderView.h"
 
 #define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
 #define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
@@ -23,7 +24,7 @@
 #define PAGE_INDEX(page)        ([(page) tag] - PAGE_INDEX_TAG_OFFSET)
 
 // Private
-@interface MWPhotoBrowser () {
+@interface MWPhotoBrowser () <MWUserHeaderViewDelegate> {
     
 	// Data
     id <MWPhotoBrowserDelegate> _delegate;
@@ -48,7 +49,7 @@
     MBProgressHUD *_progressHUD;
     
     // Appearance
-    UIImage *_navigationBarBackgroundImageDefault, 
+    UIImage *_navigationBarBackgroundImageDefault,
     *_navigationBarBackgroundImageLandscapePhone;
     UIColor *_previousNavBarTintColor;
     UIBarStyle _previousNavBarStyle;
@@ -195,7 +196,7 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
 	[_visiblePages release];
 	[_recycledPages release];
 	[_toolbar release];
-
+    
     [_actionButton release];
   	[_depreciatedPhotoData release];
     [self releaseAllUnderlyingPhotos];
@@ -249,10 +250,10 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
     }
     _toolbar.barStyle = UIBarStyleBlackTranslucent;
     _toolbar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
-
+    
     _startButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(startSlideShowPressed)];
     
-    _stopButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPause target:self action:@selector(stopSlideShowPressed)];    
+    _stopButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPause target:self action:@selector(stopSlideShowPressed)];
     
     _actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actionButtonPressed:)];
     
@@ -575,14 +576,20 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
     return photo;
 }
 
-- (MWCaptionView *)captionViewForPhotoAtIndex:(NSUInteger)index {
-    MWCaptionView *captionView = nil;
+- (MWUserHeaderView *)captionViewForPhotoAtIndex:(NSUInteger)index {
+    MWUserHeaderView *captionView = nil;
     if ([_delegate respondsToSelector:@selector(photoBrowser:captionViewForPhotoAtIndex:)]) {
         captionView = [_delegate photoBrowser:self captionViewForPhotoAtIndex:index];
     } else {
         id <MWPhoto> photo = [self photoAtIndex:index];
         if ([photo respondsToSelector:@selector(caption)]) {
-            if ([photo caption]) captionView = [[[MWCaptionView alloc] initWithPhoto:photo] autorelease];
+            
+            if ([photo headerObject]) {
+                captionView = [MWUserHeaderView newWithPhoto:photo];
+                captionView.delegate = self;
+                captionView.headerObject = [photo headerObject];
+                [captionView setup];
+            }
         }
     }
     captionView.alpha = [self areControlsHidden] ? 0 : 1; // Initial alpha
@@ -689,7 +696,7 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
 			MWLog(@"Added page at index %i", index);
             
             // Add caption
-            MWCaptionView *captionView = [self captionViewForPhotoAtIndex:index];
+            MWUserHeaderView *captionView = [self captionViewForPhotoAtIndex:index];
             captionView.frame = [self frameForCaptionView:captionView atIndex:index];
             [_pagingScrollView addSubview:captionView];
             page.captionView = captionView;
@@ -747,7 +754,7 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
     NSUInteger i;
     if (index > 0) {
         // Release anything < index - 1
-        for (i = 0; i < index-1; i++) { 
+        for (i = 0; i < index-1; i++) {
             id photo = [_photos objectAtIndex:i];
             if (photo != [NSNull null]) {
                 [photo unloadUnderlyingImage];
@@ -820,9 +827,10 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
 
 - (CGRect)frameForCaptionView:(MWCaptionView *)captionView atIndex:(NSUInteger)index {
     CGRect pageFrame = [self frameForPageAtIndex:index];
+    
     captionView.frame = CGRectMake(0, 0, pageFrame.size.width, 44); // set initial frame
     CGSize captionSize = [captionView sizeThatFits:CGSizeMake(pageFrame.size.width, 0)];
-    CGRect captionFrame = CGRectMake(pageFrame.origin.x, pageFrame.size.height - captionSize.height - (_toolbar.superview?_toolbar.frame.size.height:0), pageFrame.size.width, captionSize.height);
+    CGRect captionFrame = CGRectMake(pageFrame.origin.x, 0, pageFrame.size.width, captionSize.height);
     return captionFrame;
 }
 
@@ -893,7 +901,7 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
 {
     
     [self jumpToPageAtIndex:_currentPageIndex+1];
-
+    
 }
 
 - (void)startSlideShowPressed
@@ -948,7 +956,9 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
     // Captions
     NSMutableSet *captionViews = [[[NSMutableSet alloc] initWithCapacity:_visiblePages.count] autorelease];
     for (MWZoomingScrollView *page in _visiblePages) {
-        if (page.captionView) [captionViews addObject:page.captionView];
+        if (page.captionView){
+            [captionViews addObject:page.captionView];
+        }
     }
 	
 	// Animate
@@ -966,7 +976,7 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
         [_toolbar setAlpha:alpha];
         
         for (UIView *v in captionViews) v.alpha = alpha * 2;
-    
+        
     }];
 	// Control hiding timer
 	// Will cancel existing timer but only begin hiding if
@@ -1055,8 +1065,8 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
 #pragma mark - Action Sheet Delegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if (actionSheet == _actionsSheet) {           
-        // Actions 
+    if (actionSheet == _actionsSheet) {
+        // Actions
         self.actionsSheet = nil;
         if (buttonIndex != actionSheet.cancelButtonIndex) {
             if (buttonIndex == actionSheet.destructiveButtonIndex) {
@@ -1128,7 +1138,7 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
 
 - (void)actuallySavePhoto:(id<MWPhoto>)photo {
     if ([photo underlyingImage]) {
-        UIImageWriteToSavedPhotosAlbum([photo underlyingImage], self, 
+        UIImageWriteToSavedPhotosAlbum([photo underlyingImage], self,
                                        @selector(image:didFinishSavingWithError:contextInfo:), nil);
     }
 }
@@ -1225,7 +1235,7 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
 
 - (void)goNext
 {
-
+    
     [self gotoNextPageAnimated];
 }
 
@@ -1237,7 +1247,7 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
 }
 
 - (void)jumpToPageAnimatedAtIndex:(NSUInteger)index {
-
+    
 	if (index < [self numberOfPhotos]) {
         _nextPage = index;
     } else {
@@ -1245,18 +1255,18 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
         [self stopSlideShowPressed];
         [self setControlsHidden:NO animated:NO permanent:YES];
     }
-        CGRect pageFrame = [self frameForPageAtIndex:_nextPage];
+    CGRect pageFrame = [self frameForPageAtIndex:_nextPage];
     
-        [_pagingScrollView setContentOffset:CGPointMake(pageFrame.origin.x - PADDING, 0) animated:YES];
-        _isInAnimatingProcess = YES;
+    [_pagingScrollView setContentOffset:CGPointMake(pageFrame.origin.x - PADDING, 0) animated:YES];
+    _isInAnimatingProcess = YES;
     
-        double delayInSeconds = 0.3;
+    double delayInSeconds = 0.3;
     
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [self updateNavigation];
-        });
-		
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self updateNavigation];
+    });
+    
     double delayInSeconds2 = 0.5;
     dispatch_time_t popTime2 = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds2 * NSEC_PER_SEC));
     dispatch_after(popTime2, dispatch_get_main_queue(), ^(void){
@@ -1264,10 +1274,17 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
             [self jumpToPageAtIndex:_nextPage];
         }];
     });
-
+    
 	// Update timer to give more time
 	[self hideControlsAfterDelay];
-	
+}
+
+#pragma mark
+#pragma mark MWUserHeaderView delegate
+
+- (void)didSelectHeaderObject:(id)object
+{
+    [_delegate didSelectHeaderObject:object];
 }
 
 

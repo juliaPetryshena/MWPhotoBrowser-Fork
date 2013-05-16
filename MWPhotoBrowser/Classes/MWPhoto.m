@@ -8,21 +8,24 @@
 
 #import "MWPhoto.h"
 #import "MWPhotoBrowser.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+#import <SDWebImage/SDWebImageDecoder.h>
+
 
 // Private
-@interface MWPhoto () {
-
+@interface MWPhoto ()<SDWebImageManagerDelegate, SDWebImageDecoderDelegate> {
+    
     // Image Sources
     NSString *_photoPath;
     NSURL *_photoURL;
-
+    
     // Image
     UIImage *_underlyingImage;
-
+    
     // Other
     NSString *_caption;
     BOOL _loadingInProgress;
-        
+    
 }
 
 // Properties
@@ -38,7 +41,7 @@
 @implementation MWPhoto
 
 // Properties
-@synthesize underlyingImage = _underlyingImage, 
+@synthesize underlyingImage = _underlyingImage,
 caption = _caption;
 
 #pragma mark Class Methods

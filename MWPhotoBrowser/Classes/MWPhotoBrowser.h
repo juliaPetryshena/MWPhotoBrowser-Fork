@@ -11,6 +11,7 @@
 #import "MWPhoto.h"
 #import "MWPhotoProtocol.h"
 #import "MWCaptionView.h"
+#import "MWUserHeaderView.h"
 
 typedef void (^FacebookShareBlock)(UIImage*image);
 typedef void (^MailShareBlock)(UIImage*image);
@@ -27,13 +28,14 @@ typedef void (^MailShareBlock)(UIImage*image);
 @protocol MWPhotoBrowserDelegate <NSObject>
 - (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser;
 - (id<MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index;
+- (void)didSelectHeaderObject:(id)object;
 @optional
-- (MWCaptionView *)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSUInteger)index;
+- (MWUserHeaderView *)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSUInteger)index;
 - (void) destructiveButtonActionSheet:(NSInteger)imageindex;
 @end
 
 // MWPhotoBrowser
-@interface MWPhotoBrowser : UIViewController <UIScrollViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate> 
+@interface MWPhotoBrowser : UIViewController <UIScrollViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 
 // Properties
 @property (nonatomic) BOOL displayActionButton;
