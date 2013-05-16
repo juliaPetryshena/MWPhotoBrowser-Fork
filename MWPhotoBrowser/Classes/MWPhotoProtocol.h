@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MWHeaderObject.h"
 
 // Name of notification used when a photo has completed loading process
 // Used to notify browser display the image
@@ -55,6 +56,8 @@
 
 // Return a caption string to be displayed over the image
 // Return nil to display no caption
-- (NSString *)caption; 
+- (NSString *)caption;
+@property (nonatomic, retain) id <MWHeaderObject> headerObject;
+
 
 @end

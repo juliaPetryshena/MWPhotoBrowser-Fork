@@ -10,6 +10,7 @@
 #import "MWPhotoProtocol.h"
 #import "SDWebImageDecoder.h"
 #import "SDWebImageManager.h"
+#import "MWHeaderObject.h"
 
 // This class models a photo/image and it's caption
 // If you want to handle photos, caching, decompression
@@ -19,6 +20,7 @@
 
 // Properties
 @property (nonatomic, retain) NSString *caption;
+@property (nonatomic, retain) id <MWHeaderObject> headerObject;
 
 // Class
 + (MWPhoto *)photoWithImage:(UIImage *)image;
