@@ -43,6 +43,9 @@
 		4C6F971B14AF711300F8389A /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F970914AF711300F8389A /* UIImageView+WebCache.m */; };
 		4C6F97C714AF74E200F8389A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C6F97C614AF74E200F8389A /* MessageUI.framework */; };
 		4CB08BA314B1F38700730E9F /* MWPhotoProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CB08BA214B1F38700730E9F /* MWPhotoProtocol.h */; };
+		A7CC440A17450A5B0001B503 /* MWHeaderObject.h in Headers */ = {isa = PBXBuildFile; fileRef = A7CC440917450A5B0001B503 /* MWHeaderObject.h */; };
+		A7CC440D17450A720001B503 /* MWUserHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = A7CC440B17450A720001B503 /* MWUserHeaderView.h */; };
+		A7CC440E17450A720001B503 /* MWUserHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7CC440C17450A720001B503 /* MWUserHeaderView.m */; };
 		D3B0D1261730229B009A6F31 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3B0D1251730229B009A6F31 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
@@ -86,6 +89,9 @@
 		4C6F970914AF711300F8389A /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+WebCache.m"; path = "Libraries/SDWebImage/UIImageView+WebCache.m"; sourceTree = SOURCE_ROOT; };
 		4C6F97C614AF74E200F8389A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		4CB08BA214B1F38700730E9F /* MWPhotoProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWPhotoProtocol.h; path = Classes/MWPhotoProtocol.h; sourceTree = SOURCE_ROOT; };
+		A7CC440917450A5B0001B503 /* MWHeaderObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWHeaderObject.h; path = Classes/MWHeaderObject.h; sourceTree = SOURCE_ROOT; };
+		A7CC440B17450A720001B503 /* MWUserHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWUserHeaderView.h; path = Classes/MWUserHeaderView.h; sourceTree = SOURCE_ROOT; };
+		A7CC440C17450A720001B503 /* MWUserHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWUserHeaderView.m; path = Classes/MWUserHeaderView.m; sourceTree = SOURCE_ROOT; };
 		D3B0D1251730229B009A6F31 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -136,6 +142,9 @@
 		4C6F96C914AF704100F8389A /* MWPhotoBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				A7CC440B17450A720001B503 /* MWUserHeaderView.h */,
+				A7CC440C17450A720001B503 /* MWUserHeaderView.m */,
+				A7CC440917450A5B0001B503 /* MWHeaderObject.h */,
 				4C6F96DA14AF70BD00F8389A /* MWPhotoBrowser.h */,
 				4C6F96DB14AF70BD00F8389A /* MWPhotoBrowser.m */,
 				4C6F96D814AF70BD00F8389A /* MWPhoto.h */,
@@ -241,6 +250,8 @@
 				4C6F971814AF711300F8389A /* UIButton+WebCache.h in Headers */,
 				4C6F971A14AF711300F8389A /* UIImageView+WebCache.h in Headers */,
 				4CB08BA314B1F38700730E9F /* MWPhotoProtocol.h in Headers */,
+				A7CC440A17450A5B0001B503 /* MWHeaderObject.h in Headers */,
+				A7CC440D17450A720001B503 /* MWUserHeaderView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,6 +319,7 @@
 				4C6F971714AF711300F8389A /* SDWebImagePrefetcher.m in Sources */,
 				4C6F971914AF711300F8389A /* UIButton+WebCache.m in Sources */,
 				4C6F971B14AF711300F8389A /* UIImageView+WebCache.m in Sources */,
+				A7CC440E17450A720001B503 /* MWUserHeaderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
