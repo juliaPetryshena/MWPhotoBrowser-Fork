@@ -40,7 +40,7 @@
 					<object class="IBUIButton" id="88891300">
 						<reference key="NSNextResponder" ref="908882328"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{0, -2}, {320, 44}}</string>
+						<string key="NSFrameSize">{320, 44}</string>
 						<reference key="NSSuperview" ref="908882328"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="271512008"/>
@@ -53,6 +53,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
+						<bool key="IBUIReversesTitleShadowWhenHighlighted">YES</bool>
 						<object class="NSColor" key="IBUIHighlightedTitleColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
@@ -64,6 +65,10 @@
 						<object class="NSColor" key="IBUINormalTitleShadowColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
+						</object>
+						<object class="NSCustomResource" key="IBUINormalImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">navbarBG.png</string>
 						</object>
 						<object class="IBUIFontDescription" key="IBUIFontDescription">
 							<int key="type">2</int>
@@ -78,7 +83,7 @@
 					<object class="IBUIImageView" id="271512008">
 						<reference key="NSNextResponder" ref="908882328"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{6, 5}, {34, 31}}</string>
+						<string key="NSFrame">{{6, 7}, {34, 31}}</string>
 						<reference key="NSSuperview" ref="908882328"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="369791581"/>
@@ -89,7 +94,7 @@
 					<object class="IBUILabel" id="369791581">
 						<reference key="NSNextResponder" ref="908882328"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{53, 10}, {258, 21}}</string>
+						<string key="NSFrame">{{53, 12}, {258, 21}}</string>
 						<reference key="NSSuperview" ref="908882328"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -121,7 +126,7 @@
 						<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 					</object>
 				</array>
-				<string key="NSFrameSize">{320, 41}</string>
+				<string key="NSFrameSize">{320, 43}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="88891300"/>
@@ -219,6 +224,7 @@
 				<string key="27.CustomClassName">MWUserHeaderView</string>
 				<string key="27.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="28.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<real value="1" key="28.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="29.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="30.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
@@ -277,6 +283,10 @@
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
+		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="NS.key.0">navbarBG.png</string>
+			<string key="NS.object.0">{320, 42}</string>
+		</object>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
 </archive>

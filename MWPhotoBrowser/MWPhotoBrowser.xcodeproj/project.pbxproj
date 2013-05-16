@@ -92,6 +92,8 @@
 		A7CC440917450A5B0001B503 /* MWHeaderObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWHeaderObject.h; path = Classes/MWHeaderObject.h; sourceTree = SOURCE_ROOT; };
 		A7CC440B17450A720001B503 /* MWUserHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWUserHeaderView.h; path = Classes/MWUserHeaderView.h; sourceTree = SOURCE_ROOT; };
 		A7CC440C17450A720001B503 /* MWUserHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWUserHeaderView.m; path = Classes/MWUserHeaderView.m; sourceTree = SOURCE_ROOT; };
+		A7CC441017452DEF0001B503 /* MWUserHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MWUserHeaderView.xib; path = Classes/MWUserHeader/MWUserHeaderView.xib; sourceTree = SOURCE_ROOT; };
+		A7CC441317452E990001B503 /* navbarBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = navbarBG.png; path = Classes/navbarBG.png; sourceTree = SOURCE_ROOT; };
 		D3B0D1251730229B009A6F31 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -142,6 +144,8 @@
 		4C6F96C914AF704100F8389A /* MWPhotoBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				A7CC441317452E990001B503 /* navbarBG.png */,
+				A7CC441017452DEF0001B503 /* MWUserHeaderView.xib */,
 				A7CC440B17450A720001B503 /* MWUserHeaderView.h */,
 				A7CC440C17450A720001B503 /* MWUserHeaderView.m */,
 				A7CC440917450A5B0001B503 /* MWHeaderObject.h */,
