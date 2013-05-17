@@ -246,6 +246,17 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">MWUserHeaderView</string>
 					<string key="superclassName">MWCaptionView</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">userHeaderDidPressed:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">userHeaderDidPressed:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">userHeaderDidPressed:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="userAvatarImage">UIImageView</string>
 						<string key="userNameLabel">UILabel</string>
@@ -273,7 +284,7 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="NS.key.0">navbarBG.png</string>
-			<string key="NS.object.0">{16, 16}</string>
+			<string key="NS.object.0">{320, 42}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
