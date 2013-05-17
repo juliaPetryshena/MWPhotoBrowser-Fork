@@ -576,22 +576,22 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
     return photo;
 }
 
+
 - (MWUserHeaderView *)captionViewForPhotoAtIndex:(NSUInteger)index {
-    MWUserHeaderView *captionView = nil;
     
     id <MWPhoto> photo = [self photoAtIndex:index];
     if ([photo respondsToSelector:@selector(caption)]) {
         
         if ([photo headerObject]) {
-            captionView = [MWUserHeaderView new];
-            captionView.delegate = self;
-            captionView.headerObject = [photo headerObject];
-            [captionView setup];
+            _captionView = [MWUserHeaderView new];
+            _captionView.delegate = self;
+            _captionView.headerObject = [photo headerObject];
+            [_captionView setup];
             [_delegate photoBrowser:self captionViewForPhotoAtIndex:index];
         }
     }
-    captionView.alpha = [self areControlsHidden] ? 0 : 1; // Initial alpha
-    return captionView;
+    _captionView.alpha = [self areControlsHidden] ? 0 : 1; // Initial alpha
+    return _captionView;
 }
 
 - (UIImage *)imageForPhoto:(id<MWPhoto>)photo {
