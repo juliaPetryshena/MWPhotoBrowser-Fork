@@ -30,7 +30,7 @@ typedef void (^MailShareBlock)(UIImage*image);
 - (id<MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index;
 - (void)didSelectHeaderObject:(id)object;
 @optional
-- (MWUserHeaderView *)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSUInteger)index;
+- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSUInteger)index;
 - (void) destructiveButtonActionSheet:(NSInteger)imageindex;
 @end
 
