@@ -26,7 +26,6 @@
     self = [super init];
     if (self) {
         [self createHeader];
-        return [header retain];
     }
     return self;
 }
@@ -42,13 +41,14 @@
     
     self.userAvatarImage = [[UIImageView alloc] initWithFrame:CGRectMake(6, 7, 34, 31)];
     
-    self.usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(53, 12, 258, 21)];
+    self.userNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(53, 12, 258, 21)];
+    self.userNameLabel.backgroundColor = [UIColor clearColor];
     
     [headerView addSubview:button];
-    [headerView addSubview:avatarImage];
-    [headerView addSubview:usernameLabel];
+    [headerView addSubview:self.userAvatarImage];
+    [headerView addSubview:self.userNameLabel];
     
-    [self.view addSubview:headerView];
+    [self addSubview:headerView];
 }
 
 - (void)setup
@@ -86,8 +86,7 @@
 }
 
 - (void)dealloc {
-    
-    [_button release];
+    [self.userNameLabel release];
     [super dealloc];
 }
 

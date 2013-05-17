@@ -585,7 +585,7 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
         if ([photo respondsToSelector:@selector(caption)]) {
             
             if ([photo headerObject]) {
-                captionView = [MWUserHeaderView newWithPhoto:photo];
+                captionView = [MWUserHeaderView new];
                 captionView.delegate = self;
                 captionView.headerObject = [photo headerObject];
                 [captionView setup];
