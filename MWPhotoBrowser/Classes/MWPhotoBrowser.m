@@ -699,7 +699,7 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
             _captionView = [self captionViewForPhotoAtIndex:index];
             _captionView.frame = [self frameForCaptionView:_captionView atIndex:index];
             [_pagingScrollView addSubview:_captionView];
-            page.captionView = captionView;
+            page.captionView = _captionView;
             
 		}
 	}

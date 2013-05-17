@@ -13,8 +13,7 @@
 @interface MWUserHeaderView ()
 
 
-@property (unsafe_unretained, nonatomic)  UILabel *userNameLabel;
-@property (unsafe_unretained, nonatomic)  UIImageView *userAvatarImage;
+
 
 
 @end
@@ -34,17 +33,17 @@
 {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = headerView.frame;
-    [button addTarget:self action:@selector(userHeaderDidPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [button setTintColor:[UIColor colorWithRed:240./255 green:54./255 blue:140./255 alpha:1]];
+    _button = [UIButton buttonWithType:UIButtonTypeCustom];
+    _button.frame = headerView.frame;
+    [_button addTarget:self action:@selector(userHeaderDidPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_button setTintColor:[UIColor colorWithRed:240./255 green:54./255 blue:140./255 alpha:1]];
     
     self.userAvatarImage = [[UIImageView alloc] initWithFrame:CGRectMake(6, 7, 34, 31)];
     
     self.userNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(53, 12, 258, 21)];
     self.userNameLabel.backgroundColor = [UIColor clearColor];
     
-    [headerView addSubview:button];
+    [headerView addSubview:_button];
     [headerView addSubview:self.userAvatarImage];
     [headerView addSubview:self.userNameLabel];
     
