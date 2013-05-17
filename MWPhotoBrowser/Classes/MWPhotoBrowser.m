@@ -578,7 +578,7 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
 
 - (MWUserHeaderView *)captionViewForPhotoAtIndex:(NSUInteger)index {
     MWUserHeaderView *captionView = nil;
-    [_delegate photoBrowser:self captionViewForPhotoAtIndex:index];
+    
     id <MWPhoto> photo = [self photoAtIndex:index];
     if ([photo respondsToSelector:@selector(caption)]) {
         
@@ -587,6 +587,7 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
             captionView.delegate = self;
             captionView.headerObject = [photo headerObject];
             [captionView setup];
+            [_delegate photoBrowser:self captionViewForPhotoAtIndex:index];
         }
     }
     captionView.alpha = [self areControlsHidden] ? 0 : 1; // Initial alpha
