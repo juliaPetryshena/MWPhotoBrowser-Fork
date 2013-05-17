@@ -90,8 +90,10 @@
 	NSMutableArray *photos = [[NSMutableArray alloc] init];
     MWPhoto *photo;
 	switch (indexPath.row) {
+            
 		case 0: 
             photo = [MWPhoto photoWithFilePath:[[NSBundle mainBundle] pathForResource:@"photo2l" ofType:@"jpg"]];
+
             photo.caption = @"The London Eye is a giant Ferris wheel situated on the banks of the River Thames, in London, England.";
 			[photos addObject:photo];
 			break;
@@ -118,6 +120,7 @@
 			break;
 		default: break;
 	}
+    
     self.photos = photos;
 	
 	// Create browser
