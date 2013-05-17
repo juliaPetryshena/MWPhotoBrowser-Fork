@@ -11,28 +11,44 @@
 
 
 @interface MWUserHeaderView ()
-{
-    NSString *bundlePath;
-}
 
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel *userNameLabel;
-@property (unsafe_unretained, nonatomic) IBOutlet UIImageView *userAvatarImage;
 
-@property (retain, nonatomic) IBOutlet UIButton *button;
+@property (unsafe_unretained, nonatomic)  UILabel *userNameLabel;
+@property (unsafe_unretained, nonatomic)  UIImageView *userAvatarImage;
+
 
 @end
 
 @implementation MWUserHeaderView
 
-+ (id)newWithPhoto:(id<MWPhoto>)photo {
+- (id)init {
     
-    NSString *bundlePath = [[NSBundle mainBundle]pathForResource:@"MWPhotoBrowser" ofType:@"bundle"];
+    self = [super init];
+    if (self) {
+        [self createHeader];
+        return [header retain];
+    }
+    return self;
+}
+
+- (void)createHeader
+{
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     
-    NSArray *arr = [[NSBundle bundleWithPath:bundlePath] loadNibNamed:@"MWUserHeaderView"
-                                                                owner:nil
-                                                              options:nil];
-    MWUserHeaderView *header = [arr lastObject] ;
-    return [header retain];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = headerView.frame;
+    [button addTarget:self action:@selector(userHeaderDidPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [button setTintColor:[UIColor colorWithRed:240./255 green:54./255 blue:140./255 alpha:1]];
+    
+    self.userAvatarImage = [[UIImageView alloc] initWithFrame:CGRectMake(6, 7, 34, 31)];
+    
+    self.usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(53, 12, 258, 21)];
+    
+    [headerView addSubview:button];
+    [headerView addSubview:avatarImage];
+    [headerView addSubview:usernameLabel];
+    
+    [self.view addSubview:headerView];
 }
 
 - (void)setup
@@ -52,8 +68,6 @@
     self.userNameLabel.text = [self.headerObject getHeaderTitle];
     self.userNameLabel.textColor = [UIColor colorWithRed:1 green:0.2 blue:1 alpha:1];
     self.userNameLabel.font = [UIFont boldSystemFontOfSize:16.0];
-    UIImage *buttonBackground = [UIImage imageWithContentsOfFile:[[NSBundle bundleWithPath:bundlePath] pathForResource:@"navbarBG" ofType:@"png"]];
-    [self.button setBackgroundImage:buttonBackground forState:UIControlStateNormal];
 }
 
 - (void)setupAvatar
