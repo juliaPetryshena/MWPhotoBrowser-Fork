@@ -696,9 +696,9 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
 			MWLog(@"Added page at index %i", index);
             
             // Add caption
-            MWUserHeaderView *captionView = [self captionViewForPhotoAtIndex:index];
-            captionView.frame = [self frameForCaptionView:captionView atIndex:index];
-            [_pagingScrollView addSubview:captionView];
+            _captionView = [self captionViewForPhotoAtIndex:index];
+            _captionView.frame = [self frameForCaptionView:captionView atIndex:index];
+            [_pagingScrollView addSubview:_captionView];
             page.captionView = captionView;
             
 		}
