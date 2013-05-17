@@ -11,10 +11,14 @@
 
 
 @interface MWUserHeaderView ()
+{
+    NSString *bundlePath;
+}
 
 @property (unsafe_unretained, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UIImageView *userAvatarImage;
 
+@property (retain, nonatomic) IBOutlet UIButton *button;
 
 @end
 
@@ -48,6 +52,8 @@
     self.userNameLabel.text = [self.headerObject getHeaderTitle];
     self.userNameLabel.textColor = [UIColor colorWithRed:1 green:0.2 blue:1 alpha:1];
     self.userNameLabel.font = [UIFont boldSystemFontOfSize:16.0];
+    UIImage *buttonBackground = [UIImage imageWithContentsOfFile:[[NSBundle bundleWithPath:bundlePath] pathForResource:@"navbarBG" ofType:@"png"]];
+    [self.button setBackgroundImage:buttonBackground forState:UIControlStateNormal];
 }
 
 - (void)setupAvatar
@@ -67,6 +73,7 @@
 
 - (void)dealloc {
     
+    [_button release];
     [super dealloc];
 }
 
